@@ -1,5 +1,6 @@
 const routerApi = require('./routes')
 const express = require('express')
+const {logErrors, errorHandler} = require('./middlewares/error.handler')
 
 const app = express()
 
@@ -16,6 +17,15 @@ app.get('/', (req, res)=>{
 })
 
 
+app.use(logErrors)
+app.use(errorHandler)
+
+
+routerApi(app)
+
+
+
+
 
 app.listen(port, ()=>{
   console.log('Everything working at localhost:' + port);
@@ -24,4 +34,3 @@ app.listen(port, ()=>{
 
 
 
-routerApi(app)
